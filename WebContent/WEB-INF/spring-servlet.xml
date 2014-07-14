@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+    default-autowire="byName">
+ 
+    <context:component-scan base-package="se.umu.cs.fancraft.controller" />
+    <context:component-scan base-package="se.umu.cs.fancraft.dao" />
+         
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass"
+            value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="5242880"></property>
+    </bean>
+    
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    	<property name="basename" value="/WEB-INF/messages"/>
+    </bean>
+    
+    <bean id="userDetails" class="se.umu.cs.fancraft.util.UserDetails" scope="session">
+    	<aop:scoped-proxy/>
+    </bean>
+    
+    <bean id="userDAO" class="se.umu.cs.fancraft.dao.UserDAO" scope="singleton">
+    	<aop:scoped-proxy/>
+    </bean>
+    
+    <bean id="postDAO" class="se.umu.cs.fancraft.dao.PostDAO" scope="singleton">
+    	<aop:scoped-proxy/>
+    </bean>   
+    
+    <bean id="commentDAO" class="se.umu.cs.fancraft.dao.CommentDAO" scope="singleton">
+    	<aop:scoped-proxy/>
+    </bean>      
+    
+    <bean id="craftDAO" class="se.umu.cs.fancraft.dao.CraftDAO" scope="singleton">
+    	<aop:scoped-proxy/>
+    </bean>   
+    
+    <bean id="fandomDAO" class="se.umu.cs.fancraft.dao.FandomDAO" scope="singleton">
+    	<aop:scoped-proxy/>
+    </bean>
+    
+    <bean id="s3DAO" class="se.umu.cs.fancraft.dao.S3DAO" scope="singleton">
+    	<aop:scoped-proxy/>
+    </bean>    
+</beans>
